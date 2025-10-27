@@ -1,3 +1,4 @@
+from shutil import register_unpack_format
 from flask import Flask, request, jsonify
 from models.task import Task
 
@@ -19,5 +20,22 @@ def create_task():
     print(tasks)
     return jsonify({"messagem": "Nova tarefa criada com sucesso"})
 
+
+@app.route('/tasks', methods=['GET'])
+def get_tasks():
+  task_list = [task.to_dict() for task in tasks]
+
+  output = {
+    "tasks": task_list,
+    "total_tasks": len(task_list)
+  }
+  return jsonify(output)
+ 
+ 
+ 
+ 
+ 
+ 
+        
 if __name__ == '__main__':
-    app.run(debug=True) # aula CRUD 2 - 
+    app.run(debug=True) # Desenvolvimento do CRUD com Flask - Read - parte 1
